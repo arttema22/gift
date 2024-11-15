@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+      </script>
+   <style>
+      .head_bonus_gift {
+         width: 40px;
+         height: 40px;
+         display: inline-block;
+         vertical-align: middle;
+         float: none;
+         margin-right: 15px;
+      }
+
+      .gift_header {
+         display: flex;
+         position: absolute;
+         padding: 7px 10px 3px;
+         border-radius: 13px;
+         cursor: pointer;
+         justify-content: center;
+         align-items: center;
+         background-color: #FBBA0D;
+         box-shadow: inset 0px 4px 4px #FBBA0D52;
+      }
+
+      .gift_header:before {
+         content: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE3IDEwaDF2OGEyIDIgMCAwIDEtMiAyaC01VjEwaDZaTTQgMTBoNXYxMEg0YTIgMiAwIDAgMS0yLTJ2LThoMlptLS44LTVBNSA1IDAgMCAxIDMgMy41QzMgMS41IDQuNiAwIDYuNSAwYzEuNiAwIDIuNyAxLjUgMy40IDMgLjctMS40IDEuOC0zIDMuNi0zIDIgMCAzLjUgMS42IDMuNSAzLjUgMCAuNiAwIDEtLjIgMS41SDIwdjRoLTlWN0g5djJIMFY1aDMuMlpNMTUgMy41YzAtLjgtLjctMS41LTEuNS0xLjUtLjkgMC0xLjcgMS41LTIuMiAzSDE0Yy40IDAgMSAwIDEtMS41Wk02LjUgMkM1LjcgMiA1IDIuNyA1IDMuNSA1IDUgNS42IDUgNiA1aDIuNWMtLjUtMS42LTEuMy0zLTItM1oiLz48L3N2Zz4=');
+      }
+
+      .gift_header:after {
+         content: '';
+         position: absolute;
+         bottom: -7px;
+         right: 5px;
+         border-radius: 6px;
+         border: 8px solid transparent;
+         border-top: 8px solid #FBBA0D;
+         border-right: 8px solid #FBBA0D;
+         z-index: -1;
+      }
+
+      .h_b_g_modal {
+         display: none;
+         position: absolute;
+         width: 270px;
+         background: #FFF;
+         /* right: calc(32.6vw - 79px); */
+         top: 55px;
+         right: 5px;
+         border-radius: 15px;
+         padding: 10px;
+         -webkit-appearance: none;
+         -webkit-box-shadow: 0px 4px 15px 0px #0000004d;
+         box-shadow: 0px 4px 15px 0px #0000004d;
+      }
+
+      @media only screen and (min-width: 767px) {
+         .h_b_g_modal {
+            right: auto;
+         }
+      }
+
+      .h_b_g_m_container {
+         display: flex;
+         padding: 5px 10px 10px 10px;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         gap: 10px;
+         border-radius: 8px;
+         text-decoration: unset;
+         color: #2A2A2A;
+      }
+
+      .h_b_g_m_c_close {
+         font-size: 26px;
+         width: 16px;
+         height: 16px;
+         position: absolute;
+         transform: rotate(45deg);
+         right: 15px;
+         top: 15px;
+         cursor: pointer;
+      }
+
+      .td-bc-logo {
+         display: block;
+         height: 34px;
+         width: 100px;
+         cursor: pointer;
+      }
+
+      .h_b_g_m_c_text {
+         font-weight: 700;
+         font-size: 20px;
+         line-height: 1;
+      }
+
+      .ancor_bonus_do_40_000___:after {
+         content: 'Бонус до 40 000₽';
+      }
+
+      .head_bonus_gift a.h_b_g_m_c_btn {
+         display: block;
+         width: 100%;
+         height: 40px;
+         line-height: 40px;
+         border-radius: 5px;
+         font-weight: 700;
+         color: #fff;
+         text-align: center;
+         text-decoration: unset;
+      }
+
+      .ancor_zabrat_bonus:after {
+         content: 'Забрать бонус';
+      }
+
+      .h_b_g_m_promo {
+         display: flex;
+         gap: 10px;
+         align-items: center;
+         justify-content: center;
+         margin-top: 10px;
+         font-size: 13px;
+         font-weight: 400;
+      }
+
+      .ancor_promokod_:after {
+         content: 'ПРОМОКОД:';
+      }
+
+      .head_bonus_gift .h_b_g_m_p_code {
+         display: flex;
+         min-width: 120px;
+         max-width: 150px;
+         height: 28px;
+         padding: 6px 5px 6px 8px;
+         justify-content: space-between;
+         align-items: center;
+         border-radius: 5px;
+         cursor: pointer;
+      }
+
+      .h_b_g_m_p_c_copy {
+         font-weight: 700;
+         line-height: 28px;
+         text-overflow: ellipsis;
+         max-width: 100%;
+         overflow: hidden;
+      }
+
+      .h_b_g_m_ads {
+         color: #B8B8B8;
+         font-size: 8px;
+         line-height: 1;
+         text-align: center;
+         margin-top: 10px;
+      }
+
+      .ftr_95083::before {
+         content: "Реклама: 18+. ООО «Мелофон», ИНН: 2540179758, melbet.ru";
+      }
+   </style>
+</head>
+
+<body>
+   <div class="head_bonus_gift">
+      <div class="gift_header" id="openPopup">
+      </div>
+      <div class="h_b_g_modal" id="popup">
+         <div class="h_b_g_m_container"
+            style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.85) 100%), #FBBA0D;">
+            <span class="h_b_g_m_c_close">+</span>
+            <img width="100" height="34" loading="lazy" decoding="async" class="logo_bk td-bc-logo"
+               src="https://betonmobile.ru/wp-content/uploads/2020/10/Colordark-Melbet.png" alt="95083">
+            <div class="h_b_g_m_c_text">
+               <span class="ancor_bonus_do_40_000___"></span>
+            </div>
+            <a href="https://tracker.partnersmelbet.ru/link?btag=26232270_409903" target="_blank" rel="nofollow"
+               class="h_b_g_m_c_btn"
+               style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.10) 100%), #FBBA0D;">
+               <span class="ancor_zabrat_bonus"></span>
+            </a>
+         </div>
+         <div class="h_b_g_m_promo ">
+            <span class="ancor_promokod_"></span>
+            <div class="h_b_g_m_p_code"
+               style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.85) 100%), #FBBA0D;">
+               <span class="h_b_g_m_p_c_copy">BMGIFT</span>
+               <svg class="copy_clipboard" xmlns="http://www.w3.org/2000/svg" width="17" height="16" fill="none">
+                  <path fill="#2A2A2A"
+                     d="M3.8 14.7c-.3 0-.6-.2-1-.4-.2-.3-.3-.6-.3-1V4h1.3v9.3h7.4v1.4H3.8ZM6.5 12c-.4 0-.7-.1-1-.4-.2-.3-.3-.6-.3-1v-8c0-.3.1-.6.4-.9.2-.2.5-.4.9-.4h6c.4 0 .7.2 1 .4.2.3.3.6.3 1v8c0 .3-.1.6-.4 1-.2.2-.5.3-.9.3h-6Z">
+                  </path>
+               </svg>
+            </div>
+         </div>
+         <div class="h_b_g_m_ads ftr_95083"></div>
+      </div>
+   </div>
+</body>
+
+<script>
+   jQuery(document).ready(function () {
+      // Открытие автоматом через 10 секунд
+      setTimeout(function () {
+         jQuery("#popup").fadeIn();
+      }, 10000);
+
+      // Открытие всплывающего окна
+      jQuery("#openPopup").click(function () {
+         jQuery("#popup").fadeIn();
+      });
+
+      // Закрытие всплывающего окна по кнопке
+      jQuery(".h_b_g_m_c_close").click(function () {
+         jQuery("#popup").fadeOut();
+      });
+
+      // Закрытие окна при клике вне его
+      jQuery(function ($) {
+         $(document).mouseup(function (e) {
+            var div = $("#popup");
+            if (!div.is(e.target)
+               && div.has(e.target).length === 0) {
+               div.hide();
+            }
+         });
+      });
+
+      // Копирование промокода
+      jQuery(".copy_clipboard").click(function () {
+         let temp = jQuery("<input>");
+         jQuery("body").append(temp);
+         temp.val(jQuery(".h_b_g_m_p_c_copy").text()).select();
+         document.execCommand("copy");
+         temp.remove();
+      })
+   });
+</script>
+
+</html>
